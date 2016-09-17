@@ -17,9 +17,7 @@ public class HTMLGenerator {
     static String HTMLText;
     static TaskAnalyzer ta;
 
-    static HashMap<File, List<Task>>  todoMap;
-    static HashMap<File, List<Task>>  progressMap;
-    static HashMap<File, List<Task>>  doneMap;
+    static HashMap<File, TaskTuple>  taskMap;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -32,31 +30,46 @@ public class HTMLGenerator {
         ta = new TaskAnalyzer();
         HTMLText = "";
 
+        generateTaskMap(rootDirectory);
+
         parseFileTree(rootDirectory, 0);
     }
 
     /*
         Generate maps for each type of task
 
-        @param: directory
-            The directory to parse
-     */
-    private static TaskTuple generateTaskMaps(File directory) {
-        assert directory.isDirectory();
+        @param: f
+            The file or directory. If file, map the file to the corresponding Tasks. If directory, map the directory
+            to the corresponding subTasks, and map all subfiles and subdirectories to their corresponding tasks.
 
-        for(File subf : directory.listFiles()) {
-            if (!subf.isDirectory())
-                try {
-                    TaskTuple tt = new TaskTuple(ta.parseFile(subf), ta.parseFile(subf), ta.parseFile(subf));
-                } catch (IOException e) {
-                    System.out.println("Problem parsing file");
-                }
-            else {
-                parseFileTree(subf, 1);
+        @return: The TaskTuple that represents the corresponding tasks for this file or directory
+     */
+    private static TaskTuple generateTaskMap(File f) {
+
+        TaskTuple tt = null;
+
+        if(!f.isDirectory()){
+            try {
+                tt = new TaskTuple(ta.parseFile(f), ta.parseFile(f), ta.parseFile(f));
+            } catch (IOException e) {
+                System.out.println("Problem parsing file");
             }
+            taskMap.put(f, tt);
         }
 
-        return null;
+        else{
+            for(File subf : f.listFiles()) {
+                if(tt == null){
+                    tt = generateTaskMap(subf);
+                }
+                else{
+                    tt.concat(generateTaskMap(subf));
+                }
+            }
+            taskMap.put(f, tt);
+        }
+
+        return tt;
     }
 
     /*
@@ -74,11 +87,8 @@ public class HTMLGenerator {
 
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory())
-                try {
-                    generateFileHTML(subf.getName(), ta.parseFile(subf), null, null, depth + 1);
-                } catch (IOException e){
-                    System.out.println("Problem Parsing File");
-                }
+                generateFileHTML(subf.getName(), taskMap.get(subf).todos, taskMap.get(subf).progresses,
+                        taskMap.get(subf).dones, depth + 1);
             else {
                 parseFileTree(subf, depth + 1);
             }

@@ -28,4 +28,10 @@ public class TaskTuple {
     public void addDones(List<Task> d){
         dones.addAll(d);
     }
+
+    public void concat(TaskTuple tt){
+        todos.addAll(tt.todos);
+        progresses.addAll(tt.progresses);
+        dones.addAll(tt.dones);
+    }
 }

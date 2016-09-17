@@ -59,7 +59,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HTMLGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HTMLGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/generation/HTMLGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
@@ -71,6 +71,16 @@
                 <element signature="e#1732#1733#0" expanded="true" />
                 <element signature="e#1759#1760#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,6 +101,7 @@
         <option value="$PROJECT_DIR$/ProgressAnalysis.iml" />
         <option value="$PROJECT_DIR$/src/main/Main.java" />
         <option value="$PROJECT_DIR$/src/generation/HTMLGenerator.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -571,6 +582,14 @@
             <element signature="e#1732#1733#0" expanded="true" />
             <element signature="e#1759#1760#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>

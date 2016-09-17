@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import analysis.TaskAnalyzer;
 import data.TaskTuple;
@@ -17,7 +18,7 @@ public class HTMLGenerator {
     public static String HTMLText;
     static TaskAnalyzer ta;
 
-    static HashMap<File, TaskTuple>  taskMap;
+    static Map<File, TaskTuple> taskMap;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -38,6 +39,7 @@ public class HTMLGenerator {
                         "<body>\n";
 
 
+        taskMap = new HashMap<>();
         generateTaskMap(rootDirectory);
 
         parseFileTree(rootDirectory, 0);
@@ -60,7 +62,7 @@ public class HTMLGenerator {
             try {
                 tt = ta.parseFile(f);
             } catch (IOException e) {
-                System.out.println("Problem parsing file");
+
             }
             taskMap.put(f, tt);
         }
@@ -91,12 +93,14 @@ public class HTMLGenerator {
     private static void parseFileTree(File directory, int depth) {
         assert directory.isDirectory();
 
-        generateDirectoryHTML(directory.getName(), null, null, null, depth);
+        generateDirectoryHTML(directory.getName(), taskMap.get(directory).todos, taskMap.get(directory).progresses,
+                taskMap.get(directory).dones, depth);
 
         for(File subf : directory.listFiles()) {
-            if (!subf.isDirectory())
+            if (!subf.isDirectory()) {
                 generateFileHTML(subf.getName(), taskMap.get(subf).todos, taskMap.get(subf).progresses,
                         taskMap.get(subf).dones, depth + 1);
+            }
             else {
                 parseFileTree(subf, depth + 1);
             }
@@ -116,13 +120,11 @@ public class HTMLGenerator {
             The list of type done Task objects corresponding to this file
         @param: depth
             The number of directories that this file is inside within the main project
-
-        @return A string representing the html needed to display the necessary information
      */
-    private static String generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
         String str = new String();
-        str += "<div>";
+        str += "<div> File: " +name;
         for(Task t : todos){
             for(int i = 0; i < Math.min(depth,6); i++){
                 str += "    ";
@@ -141,8 +143,8 @@ public class HTMLGenerator {
             }
             str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
-        str += "</div>";
-        return (HTMLText + str);
+        str += " </div>\n";
+        HTMLText += str;
     }
 
     /*
@@ -159,10 +161,8 @@ public class HTMLGenerator {
             The list of type done Task objects corresponding to this file
         @param: depth
             The number of directories that this directory is inside within the main project
-
-        @return A string representing the html needed to display the necessary information
      */
-    private static String generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
         String str = new String();
         for(int i = 0; i < Math.min(depth,6); i++){
@@ -173,6 +173,6 @@ public class HTMLGenerator {
                 todos.size() + " TODO, " +
                 progress.size() + "InProgress, " +
                 done.size() + "Done. </div>";
-        return (HTMLText + str);
+        HTMLText += str;
     }
 }

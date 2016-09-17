@@ -3,6 +3,7 @@ package test;
 import generation.HTMLGenerator;
 import org.junit.*;
 import java.io.File;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,7 +15,8 @@ public class HTMLGeneratorTest {
 
     @Test
     public void test(){
-        File src_file = new File("src");
+        File src_file = Paths.get("src").toFile();
+        System.out.println("" + Paths.get("src").toFile().isDirectory());
         HTMLGenerator.generateHTML(src_file);
         System.out.println(HTMLGenerator.HTMLText);
     }

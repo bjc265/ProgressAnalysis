@@ -9,6 +9,8 @@ import java.util.List;
  * Created by brett on 9/17/16.
  */
 public class HTMLGenerator {
+    String HTMLText;
+
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
 
@@ -17,8 +19,8 @@ public class HTMLGenerator {
      */
     public static void generateHTML(File rootDirectory) {
 
-        parseFileTree(rootDirectory);
-
+        HTMLText = "";
+        parseFileTree(rootDirectory, 0);
     }
 
     /*
@@ -26,20 +28,54 @@ public class HTMLGenerator {
 
         @param: directory
             The directory to parse
+        @param: depth
+            The number of directories that this directory is inside
      */
-    private static void parseFileTree(File directory) {
+    private static void parseFileTree(File directory, int depth) {
+        assert directory.isDirectory();
 
+        generateDirectoryHTML(subf.getName(), getSubTasks(subf), depth);
+
+        for(File subf : rootDirectory) {
+            if (!subf.isDirectory())
+                generateFileHTML(subf.getName(), getTasks(subf), depth + 1)
+            else {
+                parseFileTree(subf, depth + 1);
+            }
+        }
     }
 
     /*
-        Generate a string of HTML to represent one class's information about the tasks in that class
+        Parse the directory, and create a list of tasks in all files inside the directory
+
+        @param: directory
+            The directory to parse
+     */
+    private static List<Task> getSubTasks(File directory) {
+        assert directory.isDirectory();
+
+        HTMLText += generateDirectoryHTML(subf.getName(), getSubTasks(subf), depth);
+
+        for(File subf : rootDirectory) {
+            if (!subf.isDirectory())
+                HTMLText += generateFileHTML(subf.getName(), getTasks(subf), depth + 1)
+            else {
+                parseFileTree(subf, depth + 1);
+            }
+        }
+    }
+
+    /*
+        Generate a string of HTML to represent one file's information about the tasks in that file
 
         @param: name
-            The name of the class
+            The name of the file
         @param: tasks
-            The list of Task objects corresponding to this class
+            The list of Task objects corresponding to this file
         @param: depth
             The number of directories that this file is inside within the main project
+
+        @return A string representing the html needed to display the necessary information
      */
     private static String generateFileHTML(String name, List<Task> tasks, int depth) {
         
@@ -61,6 +97,8 @@ public class HTMLGenerator {
             The list of Task objects in all classes inside the directory
         @param: depth
             The number of directories that this directory is inside within the main project
+
+        @return A string representing the html needed to display the necessary information
      */
     private static String generateDirectoryHTML(String name, List<Task> tasks, int depth) {
         return null;

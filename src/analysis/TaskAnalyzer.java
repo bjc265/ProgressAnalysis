@@ -1,6 +1,7 @@
 package analysis;
 
 import data.Task;
+import data.TaskTuple;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class TaskAnalyzer {
 
-    public static List<Task> parseFile(File f) throws IOException {
+    public static TaskTuple parseFile(File f) throws IOException {
 
         Pattern todoPattern;
         Pattern completePattern;
@@ -27,11 +28,11 @@ public class TaskAnalyzer {
             case ".c":
             case ".cpp":
             case ".cs":
-            case ".py":
                 todoPattern = Pattern.compile("(.*\".*\".*)*//.*(TODO.*)");
                 completePattern = Pattern.compile("(.*\".*\".*)*//.*(COMPLETE.*)");
                 inProgressPattern = Pattern.compile("(.*\".*\".*)*//.*(IN_PROGRESS.*)");
                 break;
+            case ".py":
             case ".rb":
                 todoPattern = Pattern.compile("(.*\".*\".*)*#.*(TODO.*)");
                 completePattern = Pattern.compile("(.*\".*\".*)*#.*(COMPLETE.*)");
@@ -45,21 +46,21 @@ public class TaskAnalyzer {
 
         BufferedReader reader = new BufferedReader(new FileReader(f));
 
-        List<Task> tasks = reader.lines().map(todoPattern::matcher)
+        List<Task> todos = reader.lines().map(todoPattern::matcher)
                 .filter(Matcher::matches)
                 .map(x -> new Task(Task.TaskType.TODO, 0, x.group(x.groupCount() - 1).substring(5)))
                 .collect(Collectors.toList());
 
-        tasks.addAll(reader.lines().map(completePattern::matcher)
+        List<Task> completes = reader.lines().map(completePattern::matcher)
                 .filter(Matcher::matches)
                 .map(x -> new Task(Task.TaskType.COMPLETE, 0, x.group(x.groupCount() - 1).substring(9)))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
-        tasks.addAll(reader.lines().map(inProgressPattern::matcher)
+        List<Task> progresses = reader.lines().map(inProgressPattern::matcher)
                 .filter(Matcher::matches)
                 .map(x -> new Task(Task.TaskType.IN_PROGRESS, 0, x.group(x.groupCount() - 1).substring(12)))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
 
-        return tasks;
+        return new TaskTuple(todos, progresses, completes);
     }
 }

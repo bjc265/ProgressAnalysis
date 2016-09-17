@@ -4,9 +4,11 @@ import data.Task;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import analysis.TaskAnalyzer;
+import data.TaskTuple;
 
 /**
  * Created by brett on 9/17/16.
@@ -14,6 +16,8 @@ import analysis.TaskAnalyzer;
 public class HTMLGenerator {
     public static String HTMLText;
     static TaskAnalyzer ta;
+
+    static HashMap<File, TaskTuple>  taskMap;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -34,7 +38,46 @@ public class HTMLGenerator {
                         "<body>\n";
 
 
+        generateTaskMap(rootDirectory);
+
         parseFileTree(rootDirectory, 0);
+    }
+
+    /*
+        Generate maps for each type of task
+
+        @param: f
+            The file or directory. If file, map the file to the corresponding Tasks. If directory, map the directory
+            to the corresponding subTasks, and map all subfiles and subdirectories to their corresponding tasks.
+
+        @return: The TaskTuple that represents the corresponding tasks for this file or directory
+     */
+    private static TaskTuple generateTaskMap(File f) {
+
+        TaskTuple tt = null;
+
+        if(!f.isDirectory()){
+            try {
+                tt = ta.parseFile(f);
+            } catch (IOException e) {
+                System.out.println("Problem parsing file");
+            }
+            taskMap.put(f, tt);
+        }
+
+        else{
+            for(File subf : f.listFiles()) {
+                if(tt == null){
+                    tt = generateTaskMap(subf);
+                }
+                else{
+                    tt.concat(generateTaskMap(subf));
+                }
+            }
+            taskMap.put(f, tt);
+        }
+
+        return tt;
     }
 
     /*
@@ -52,11 +95,8 @@ public class HTMLGenerator {
 
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory())
-                try {
-                    generateFileHTML(subf.getName(), ta.parseFile(subf), null, null, depth + 1);
-                } catch (IOException e){
-                    System.out.println("Problem Parsing File");
-                }
+                generateFileHTML(subf.getName(), taskMap.get(subf).todos, taskMap.get(subf).progresses,
+                        taskMap.get(subf).dones, depth + 1);
             else {
                 parseFileTree(subf, depth + 1);
             }

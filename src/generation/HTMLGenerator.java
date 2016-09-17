@@ -87,9 +87,10 @@ public class HTMLGenerator {
                 taskMap.get(directory).dones, depth);
 
         for(File subf : directory.listFiles()) {
-            if (!subf.isDirectory())
+            if (!subf.isDirectory()) {
                 generateFileHTML(subf.getName(), taskMap.get(subf).todos, taskMap.get(subf).progresses,
                         taskMap.get(subf).dones, depth + 1);
+            }
             else {
                 parseFileTree(subf, depth + 1);
             }
@@ -124,7 +125,10 @@ public class HTMLGenerator {
             str +=  "Line " + t.line + "- In Progress: " + t.message + "\n";
         }
         for(Task t : done){
-            str +=  "Line " + t.line + "- Done: " + t.message;
+            for(int i = 0; i < Math.min(depth,6); i++){
+                str += "    ";
+            }
+            str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
         str += " </div>\n";
         HTMLText += str;
@@ -152,7 +156,7 @@ public class HTMLGenerator {
             str += "    ";
         }
         str += "<div> Directory: " + name +
-                " Tasks: " +
+                "Tasks: " +
                 todos.size() + " TODO, " +
                 progress.size() + " InProgress, " +
                 done.size() + " Done. </div>\n";

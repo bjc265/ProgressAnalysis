@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,10 +23,10 @@ public class TaskAnalyzer {
     public static TaskTuple parseFile(File f) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(f));
 
-        return parseReader(f.getName(), reader);
+        return parseReader(f.getName(), reader, Paths.get(f.getPath()));
     }
 
-    public static TaskTuple parseReader(String fileName, BufferedReader reader) throws IOException {
+    public static TaskTuple parseReader(String fileName, BufferedReader reader, Path path) throws IOException {
 
         Pattern todoPattern;
         Pattern completePattern;
@@ -51,18 +53,18 @@ public class TaskAnalyzer {
 
         Stream<Task> temp = reader.lines().map(todoPattern::matcher)
                 .filter(Matcher::matches)
-                .map(x -> new Task(Task.TaskType.TODO, 0, x.group(x.groupCount()).substring(5)));
+                .map(x -> new Task(Task.TaskType.TODO, 0, x.group(x.groupCount()).substring(5),path));
         List<Task> todos = temp.collect(Collectors.toList());
 
 
         List<Task> completes = reader.lines().map(completePattern::matcher)
                 .filter(Matcher::matches)
-                .map(x -> new Task(Task.TaskType.COMPLETE, 0, x.group(x.groupCount()).substring(9)))
+                .map(x -> new Task(Task.TaskType.COMPLETE, 0, x.group(x.groupCount()).substring(9),path))
                 .collect(Collectors.toList());
 
         List<Task> progresses = reader.lines().map(inProgressPattern::matcher)
                 .filter(Matcher::matches)
-                .map(x -> new Task(Task.TaskType.IN_PROGRESS, 0, x.group(x.groupCount()).substring(12)))
+                .map(x -> new Task(Task.TaskType.IN_PROGRESS, 0, x.group(x.groupCount()).substring(12),path))
                 .collect(Collectors.toList());
 
         return new TaskTuple(todos, progresses, completes);

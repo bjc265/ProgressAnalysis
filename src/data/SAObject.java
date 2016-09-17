@@ -1,7 +1,7 @@
 package data;
 
-import java.util.Set;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by brett on 9/17/16.

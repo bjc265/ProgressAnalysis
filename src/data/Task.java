@@ -6,7 +6,7 @@ package data;
 public class Task {
 
     public enum TaskType {
-        TODO,COMPLETE,IN_PROGRESS
+        TODO, COMPLETE, IN_PROGRESS
     }
 
     private TaskType type;

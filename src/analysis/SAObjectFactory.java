@@ -1,6 +1,7 @@
 package analysis;
 
 import data.SAObject;
+
 import java.io.File;
 
 /**
@@ -15,15 +16,13 @@ public class SAObjectFactory {
 
 
     public SAObject analyzeFile(File f) {
-        switch(f.getName().substring(f.getName().lastIndexOf('.'))) {
+        switch (f.getName().substring(f.getName().lastIndexOf('.'))) {
             case ".java":
                 return JavaAnalyzer.parseFile(f);
             default:
                 return null;
         }
     }
-
-
 
 
 }

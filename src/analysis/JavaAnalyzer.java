@@ -2,13 +2,14 @@ package analysis;
 
 import data.SAObject;
 import data.Task;
+
 import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.List;
-import java.util.ArrayList;
 import java.io.File;
-import java.util.Set;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by brett on 9/17/16.
@@ -26,7 +27,7 @@ public class JavaAnalyzer {
             BufferedReader reader = new BufferedReader(new FileReader(f));
             String line = reader.readLine();
             int lineNum = 1;
-            while(line != null) {
+            while (line != null) {
                 int todoIndex = line.indexOf("//");
                 if (todoIndex > -1) {
                     String before = line.substring(0, todoIndex);
@@ -39,21 +40,21 @@ public class JavaAnalyzer {
                         beforeQuot = before.indexOf("\"");
                     }
                     if (totalQuots % 2 == 0) {
-                        switch(line.substring(todoIndex+2,todoIndex+7)) {
+                        switch (line.substring(todoIndex + 2, todoIndex + 7)) {
                             case "TODO ":
                                 tasks.add(new Task(Task.TaskType.TODO, lineNum,
-                                        line.substring(todoIndex+6)));
+                                        line.substring(todoIndex + 6)));
                                 break;
                             case "COMPL":
-                                if(line.substring(todoIndex+2,todoIndex+11).equals("COMPLETE ")) {
+                                if (line.substring(todoIndex + 2, todoIndex + 11).equals("COMPLETE ")) {
                                     tasks.add(new Task(Task.TaskType.COMPLETE, lineNum,
-                                            line.substring(todoIndex+11)));
+                                            line.substring(todoIndex + 11)));
                                     break;
                                 }
                             case "IN_PR":
-                                if(line.substring(todoIndex+2,todoIndex+13).equals("IN_PROGRESS ")) {
+                                if (line.substring(todoIndex + 2, todoIndex + 13).equals("IN_PROGRESS ")) {
                                     tasks.add(new Task(Task.TaskType.IN_PROGRESS, lineNum,
-                                            line.substring(todoIndex+13)));
+                                            line.substring(todoIndex + 13)));
                                     break;
                                 }
                             default:
@@ -68,9 +69,9 @@ public class JavaAnalyzer {
                 lineNum++;
             }
 
-            return new SAObject(name,references,referenced_by,tasks);
+            return new SAObject(name, references, referenced_by, tasks);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -53,18 +53,18 @@ public class TaskAnalyzer {
 
         Stream<Task> temp = reader.lines().map(todoPattern::matcher)
                 .filter(Matcher::matches)
-                .map(x -> new Task(Task.TaskType.TODO, 0, x.group(x.groupCount()).substring(5),path));
+                .map(x -> new Task(Task.TaskType.TODO, 0, x.group(x.groupCount()).substring(5).trim(), path));
         List<Task> todos = temp.collect(Collectors.toList());
 
 
         List<Task> completes = reader.lines().map(completePattern::matcher)
                 .filter(Matcher::matches)
-                .map(x -> new Task(Task.TaskType.COMPLETE, 0, x.group(x.groupCount()).substring(9),path))
+                .map(x -> new Task(Task.TaskType.COMPLETE, 0, x.group(x.groupCount()).substring(9).trim(), path))
                 .collect(Collectors.toList());
 
         List<Task> progresses = reader.lines().map(inProgressPattern::matcher)
                 .filter(Matcher::matches)
-                .map(x -> new Task(Task.TaskType.IN_PROGRESS, 0, x.group(x.groupCount()).substring(12),path))
+                .map(x -> new Task(Task.TaskType.IN_PROGRESS, 0, x.group(x.groupCount()).substring(12).trim(), path))
                 .collect(Collectors.toList());
 
         return new TaskTuple(todos, progresses, completes);

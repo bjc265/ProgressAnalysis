@@ -29,16 +29,6 @@ public class HTMLGenerator {
     public static void generateHTML(File rootDirectory) {
 
         ta = new TaskAnalyzer();
-        HTMLText =
-                "<!doctype html>\n " + "<html lang = \"en\"\n" +
-                        "<head>\n   <meta charset=\"utf-8\"\n\n" +
-                        "   <title> Progress Analyzer </title>\n" +
-                        "   meta name=\"description\" content=\"SitePoint\">\n" +
-                        "   meta name=\"author\" content=\"SitePoint\"\n\n>" +
-                        "</head>\n\n" +
-                        "<body>\n";
-
-
         taskMap = new HashMap<>();
         generateTaskMap(rootDirectory);
 
@@ -126,17 +116,14 @@ public class HTMLGenerator {
     private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
         String str = new String();
+        for(int i = 0; i < Math.min(depth,6); i++){
+            str += "    ";
+        }
         str += "<div> File: " +name;
         for(Task t : todos){
-            for(int i = 0; i < Math.min(depth,6); i++){
-                str += "    ";
-            }
             str +=  "Line " + t.line + "- TODO: " + t.message + "\n";
         }
         for(Task t : progress){
-            for(int i = 0; i < Math.min(depth,6); i++){
-                str += "    ";
-            }
             str +=  "Line " + t.line + "- In Progress: " + t.message + "\n";
         }
         for(Task t : done){
@@ -173,8 +160,23 @@ public class HTMLGenerator {
         str += "<div> Directory: " + name +
                 "Tasks: " +
                 todos.size() + " TODO, " +
-                progress.size() + "InProgress, " +
-                done.size() + "Done. </div>";
+                progress.size() + " InProgress, " +
+                done.size() + " Done. </div>\n";
+        for(Task t : todos){
+            str+= "<div> TODO: Line " + t.line;
+        }
         HTMLText += str;
+    }
+
+    private static String startHTMLFile(String str){
+        str += "<!doctype html>\n " + "<html lang = \"en\"\n" +
+                "<head>\n   <meta charset=\"utf-8\"\n\n" +
+                "   <title> Progress Analyzer </title>\n" +
+                "   <meta name=\"description\" content=\"SitePoint\">\n" +
+                "   <meta name=\"author\" content=\"SitePoint\"\n\n>" +
+                "</head>\n\n" +
+                "<body>\n";
+
+        return str;
     }
 }

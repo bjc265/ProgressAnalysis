@@ -1,15 +1,16 @@
 package generation;
 
-import data.SAObject;
+import data.FileData;
 
-import java.util.List;
+import java.util.Map;
+import java.io.File;
 
 /**
  * Created by brett on 9/17/16.
  */
 public class HTMLGenerator {
 
-    public static void generateHTML(List<SAObject> objects) {
+    public static void generateHTML(Map<File, FileData> objects) {
 
     }
 }

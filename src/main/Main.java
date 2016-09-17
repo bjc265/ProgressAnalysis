@@ -1,7 +1,5 @@
 package main;
 
-import analysis.SAObjectFactory;
-import data.SAObject;
 import generation.HTMLGenerator;
 
 import java.io.File;
@@ -17,17 +15,9 @@ public class Main {
     public static void main(String[] args) {
 
         File directory = Paths.get(args[0]).toFile();
-        SAObjectFactory analyzer = SAObjectFactory.getInstance();
         List<File> files = new ArrayList<>();
 
         getFiles(directory, files);
-        List<SAObject> objects = new ArrayList<>(files.size());
-
-        for (File f : files) {
-            objects.add(analyzer.analyzeFile(f));
-        }
-
-        HTMLGenerator.generateHTML(objects);
     }
 
     private static void getFiles(File f, List<File> files) {
@@ -38,5 +28,4 @@ public class Main {
                 getFiles(subf, files);
         }
     }
-
 }

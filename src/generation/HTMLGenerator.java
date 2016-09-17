@@ -14,7 +14,7 @@ import data.TaskTuple;
  * Created by brett on 9/17/16.
  */
 public class HTMLGenerator {
-    static String HTMLText;
+    public static String HTMLText;
     static TaskAnalyzer ta;
 
     static HashMap<File, TaskTuple>  taskMap;
@@ -28,7 +28,15 @@ public class HTMLGenerator {
     public static void generateHTML(File rootDirectory) {
 
         ta = new TaskAnalyzer();
-        HTMLText = "";
+        HTMLText =
+                "<!doctype html>\n " + "<html lang = \"en\"\n" +
+                        "<head>\n   <meta charset=\"utf-8\"\n\n" +
+                        "   <title> Progress Analyzer </title>\n" +
+                        "   meta name=\"description\" content=\"SitePoint\">\n" +
+                        "   meta name=\"author\" content=\"SitePoint\"\n\n>" +
+                        "</head>\n\n" +
+                        "<body>\n";
+
 
         generateTaskMap(rootDirectory);
 
@@ -114,6 +122,7 @@ public class HTMLGenerator {
     private static String generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
         String str = new String();
+        str += "<div>";
         for(Task t : todos){
             for(int i = 0; i < Math.min(depth,6); i++){
                 str += "    ";
@@ -132,7 +141,8 @@ public class HTMLGenerator {
             }
             str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
-        return str;
+        str += "</div>";
+        return (HTMLText + str);
     }
 
     /*
@@ -163,6 +173,6 @@ public class HTMLGenerator {
                 todos.size() + " TODO, " +
                 progress.size() + "InProgress, " +
                 done.size() + "Done. </div>";
-        return str;
+        return (HTMLText + str);
     }
 }

@@ -40,6 +40,8 @@ public class HTMLGenerator {
             The list of Task objects corresponding to this class
         @param: depth
             The number of directories that this file is inside within the main project
+
+        @return A string representing the html needed to display the necessary information
      */
     private static String generateFileHTML(String name, List<Task> tasks, int depth) {
         return null;
@@ -55,6 +57,8 @@ public class HTMLGenerator {
             The list of Task objects in all classes inside the directory
         @param: depth
             The number of directories that this directory is inside within the main project
+            
+        @return A string representing the html needed to display the necessary information
      */
     private static String generateDirectoryHTML(String name, List<Task> tasks, int depth) {
         return null;

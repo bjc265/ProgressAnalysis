@@ -1,4 +1,4 @@
-out/
-.idea/
+out/*
+.idea/*
 ProgressAnalysis.iml
-lib/j2html-0.7.jar
+lib/

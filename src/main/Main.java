@@ -27,7 +27,7 @@ public class Main {
             objects.add(analyzer.analyzeFile(f));
         }
 
-        HTMLGenerator.generateHTML(objects);
+        //HTMLGenerator.generateHTML(objects);
     }
 
     private static void getFiles(File f, List<File> files) {

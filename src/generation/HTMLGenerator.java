@@ -4,9 +4,11 @@ import data.Task;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import analysis.TaskAnalyzer;
+import data.TaskTuple;
 
 /**
  * Created by brett on 9/17/16.
@@ -14,6 +16,10 @@ import analysis.TaskAnalyzer;
 public class HTMLGenerator {
     static String HTMLText;
     static TaskAnalyzer ta;
+
+    static HashMap<File, List<Task>>  todoMap;
+    static HashMap<File, List<Task>>  progressMap;
+    static HashMap<File, List<Task>>  doneMap;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -27,6 +33,28 @@ public class HTMLGenerator {
         HTMLText = "";
 
         parseFileTree(rootDirectory, 0);
+    }
+
+    /*
+        Generate maps for each type of task
+
+        @param: directory
+            The directory to parse
+     */
+    private static TaskTuple generateTaskMaps(File directory) {
+        assert directory.isDirectory();
+
+        for(File subf : directory.listFiles()) {
+            if (!subf.isDirectory())
+                try {
+                    TaskTuple tt = new TaskTuple(ta.parseFile(subf), ta.parseFile(subf), ta.parseFile(subf));
+                } catch (IOException e) {
+                    System.out.println("Problem parsing file");
+                }
+            else {
+                parseFileTree(subf, 1);
+            }
+        }
     }
 
     /*

@@ -1,6 +1,6 @@
 package generation;
 
-import data.SAObject;
+import data.FileData;
 
 import java.util.List;
 import java.io.File;
@@ -14,7 +14,6 @@ import static j2html.TagCreator.*;
  * Created by brett on 9/17/16.
  */
 public class HTMLGenerator {
-
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
 

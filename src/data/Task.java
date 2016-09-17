@@ -9,15 +9,13 @@ public class Task {
         TODO, COMPLETE, IN_PROGRESS
     }
 
-    private TaskType type;
-    private String message;
-    private int line;
+    public TaskType type;
+    public String message;
+    public int line;
 
     public Task(TaskType t, int l, String m) {
         type = t;
         line = l;
         message = m;
     }
-
-
 }

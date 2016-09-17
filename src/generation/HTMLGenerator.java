@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import analysis.TaskAnalyzer;
 import data.TaskTuple;
@@ -17,7 +18,7 @@ public class HTMLGenerator {
     public static String HTMLText;
     static TaskAnalyzer ta;
 
-    static HashMap<File, TaskTuple>  taskMap;
+    static Map<File, TaskTuple> taskMap;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -38,6 +39,7 @@ public class HTMLGenerator {
                         "<body>\n";
 
 
+        taskMap = new HashMap<>();
         generateTaskMap(rootDirectory);
 
         parseFileTree(rootDirectory, 0);
@@ -60,7 +62,7 @@ public class HTMLGenerator {
             try {
                 tt = ta.parseFile(f);
             } catch (IOException e) {
-                System.out.println("Problem parsing file");
+
             }
             taskMap.put(f, tt);
         }
@@ -91,7 +93,8 @@ public class HTMLGenerator {
     private static void parseFileTree(File directory, int depth) {
         assert directory.isDirectory();
 
-        generateDirectoryHTML(directory.getName(), null, null, null, depth);
+        generateDirectoryHTML(directory.getName(), taskMap.get(directory).todos, taskMap.get(directory).progresses,
+                taskMap.get(directory).dones, depth);
 
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory())

@@ -120,7 +120,7 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this file is inside within the main project
      */
-    private static String generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
         String str = new String();
         str += "<div>";

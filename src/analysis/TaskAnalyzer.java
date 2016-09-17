@@ -39,9 +39,7 @@ public class TaskAnalyzer {
                 inProgressPattern = Pattern.compile("(.*\".*\".*)*#.*(IN_PROGRESS.*)");
                 break;
             default:
-                todoPattern = null;
-                completePattern = null;
-                inProgressPattern = null;
+                throw new IOException();
         }
 
         BufferedReader reader = new BufferedReader(new FileReader(f));

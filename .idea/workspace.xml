@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb8d4508-bb03-43ea-91db-3c176d27da83" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/data/TaskTuple.java" afterPath="$PROJECT_DIR$/src/data/TaskTuple.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/generation/HTMLGenerator.java" afterPath="$PROJECT_DIR$/src/generation/HTMLGenerator.java" />
     </list>
@@ -34,7 +35,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HTMLGenerator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HTMLGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/generation/HTMLGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
@@ -46,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TaskTuple.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TaskTuple.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data/TaskTuple.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+            <state relative-caret-position="300">
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
               <folding>
                 <element signature="e#369#370#0" expanded="true" />
                 <element signature="e#400#401#0" expanded="true" />
@@ -650,20 +651,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/generation/HTMLGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/data/TaskTuple.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+        <state relative-caret-position="300">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
           <folding>
             <element signature="e#369#370#0" expanded="true" />
             <element signature="e#400#401#0" expanded="true" />
@@ -671,6 +662,16 @@
             <element signature="e#482#483#0" expanded="true" />
             <element signature="e#523#524#0" expanded="true" />
             <element signature="e#554#555#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/generation/HTMLGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="65" column="45" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

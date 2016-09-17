@@ -79,7 +79,7 @@ public class HTMLGenerator {
      */
     private static String generateFileHTML(String name, List<Task> tasks, int depth) {
         String str = new String;
-        
+
 
 
 

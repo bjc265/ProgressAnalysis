@@ -2,3 +2,4 @@ out/*
 .idea/*
 ProgressAnalysis.iml
 lib/
+../idea/workspace.xml

@@ -78,13 +78,15 @@ public class HTMLGenerator {
         @return A string representing the html needed to display the necessary information
      */
     private static String generateFileHTML(String name, List<Task> tasks, int depth) {
+        String str = new String;
         
 
 
 
 
 
-        return null;
+
+        return str;
     }
 
     /*

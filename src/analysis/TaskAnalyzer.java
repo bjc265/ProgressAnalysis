@@ -27,12 +27,12 @@ public class TaskAnalyzer {
             case ".c":
             case ".cpp":
             case ".cs":
-            case ".p":
+            case ".py":
                 todoPattern = Pattern.compile("(.*\".*\".*)*//.*(TODO.*)");
                 completePattern = Pattern.compile("(.*\".*\".*)*//.*(COMPLETE.*)");
                 inProgressPattern = Pattern.compile("(.*\".*\".*)*//.*(IN_PROGRESS.*)");
                 break;
-            case ".rbw":
+            case ".rb":
                 todoPattern = Pattern.compile("(.*\".*\".*)*#.*(TODO.*)");
                 completePattern = Pattern.compile("(.*\".*\".*)*#.*(COMPLETE.*)");
                 inProgressPattern = Pattern.compile("(.*\".*\".*)*#.*(IN_PROGRESS.*)");

@@ -33,8 +33,8 @@ public class HTMLGenerator {
                 "<!doctype html>\n " + "<html lang = \"en\"\n" +
                         "<head>\n   <meta charset=\"utf-8\"\n\n" +
                         "   <title> Progress Analyzer </title>\n" +
-                        "   meta name=\"description\" content=\"SitePoint\">\n" +
-                        "   meta name=\"author\" content=\"SitePoint\"\n\n>" +
+                        "   <meta name=\"description\" content=\"SitePoint\">\n" +
+                        "   <meta name=\"author\" content=\"SitePoint\"\n\n>" +
                         "</head>\n\n" +
                         "<body>\n";
 
@@ -120,7 +120,7 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this file is inside within the main project
      */
-    private static String generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
         String str = new String();
         str += "<div>";
@@ -140,9 +140,9 @@ public class HTMLGenerator {
             for(int i = 0; i < Math.min(depth,6); i++){
                 str += "    ";
             }
-            str +=  "Line " + t.line + "- Done: " + t.message + "\n";
+            str +=  "Line " + t.line + "- Done: " + t.message;
         }
-        str += "</div>";
+        str += "</div>\n";
         HTMLText += str;
     }
 
@@ -168,10 +168,10 @@ public class HTMLGenerator {
             str += "    ";
         }
         str += "<div> Directory: " + name +
-                "Tasks: " +
+                " Tasks: " +
                 todos.size() + " TODO, " +
-                progress.size() + "InProgress, " +
-                done.size() + "Done. </div>";
+                progress.size() + " InProgress, " +
+                done.size() + " Done. </div>\n";
         HTMLText += str;
     }
 }

@@ -1,7 +1,5 @@
 package main;
 
-import generation.HTMLGenerator;
-
 import java.io.File;
 import java.nio.file.Paths;
 import java.util.ArrayList;

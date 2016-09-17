@@ -119,8 +119,6 @@ public class HTMLGenerator {
             The list of type done Task objects corresponding to this file
         @param: depth
             The number of directories that this file is inside within the main project
-
-        @return A string representing the html needed to display the necessary information
      */
     private static String generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
@@ -145,7 +143,7 @@ public class HTMLGenerator {
             str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
         str += "</div>";
-        return (HTMLText + str);
+        HTMLText += str;
     }
 
     /*
@@ -162,10 +160,8 @@ public class HTMLGenerator {
             The list of type done Task objects corresponding to this file
         @param: depth
             The number of directories that this directory is inside within the main project
-
-        @return A string representing the html needed to display the necessary information
      */
-    private static String generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
         String str = new String();
         for(int i = 0; i < Math.min(depth,6); i++){
@@ -176,6 +172,6 @@ public class HTMLGenerator {
                 todos.size() + " TODO, " +
                 progress.size() + "InProgress, " +
                 done.size() + "Done. </div>";
-        return (HTMLText + str);
+        HTMLText += str;
     }
 }

@@ -123,7 +123,7 @@ public class HTMLGenerator {
     private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
         String str = new String();
-        str += "<div>";
+        str += "<div> File: " +name;
         for(Task t : todos){
             for(int i = 0; i < Math.min(depth,6); i++){
                 str += "    ";
@@ -142,7 +142,7 @@ public class HTMLGenerator {
             }
             str +=  "Line " + t.line + "- Done: " + t.message;
         }
-        str += "</div>\n";
+        str += " </div>\n";
         HTMLText += str;
     }
 

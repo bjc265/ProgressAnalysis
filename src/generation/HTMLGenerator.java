@@ -9,7 +9,7 @@ import java.util.List;
  * Created by brett on 9/17/16.
  */
 public class HTMLGenerator {
-    String HTMLText;
+    static String HTMLText;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -34,31 +34,11 @@ public class HTMLGenerator {
     private static void parseFileTree(File directory, int depth) {
         assert directory.isDirectory();
 
-        generateDirectoryHTML(subf.getName(), getSubTasks(subf), depth);
+        generateDirectoryHTML(directory.getName(), null, depth);
 
-        for(File subf : rootDirectory) {
+        for(File subf : directory.listFiles()) {
             if (!subf.isDirectory())
-                generateFileHTML(subf.getName(), getTasks(subf), depth + 1)
-            else {
-                parseFileTree(subf, depth + 1);
-            }
-        }
-    }
-
-    /*
-        Parse the directory, and create a list of tasks in all files inside the directory
-
-        @param: directory
-            The directory to parse
-     */
-    private static List<Task> getSubTasks(File directory) {
-        assert directory.isDirectory();
-
-        HTMLText += generateDirectoryHTML(subf.getName(), getSubTasks(subf), depth);
-
-        for(File subf : rootDirectory) {
-            if (!subf.isDirectory())
-                HTMLText += generateFileHTML(subf.getName(), getTasks(subf), depth + 1)
+                generateFileHTML(subf.getName(), null, depth + 1);
             else {
                 parseFileTree(subf, depth + 1);
             }

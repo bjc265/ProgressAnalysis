@@ -55,6 +55,8 @@ public class HTMLGenerator {
                 parseFileTree(subf, 1);
             }
         }
+
+        return null;
     }
 
     /*

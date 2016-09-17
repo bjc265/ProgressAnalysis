@@ -101,14 +101,25 @@ public class HTMLGenerator {
      */
     private static String generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
-        String str = new String;
-
-
-
-
-
-
-
+        String str = new String();
+        for(Task t : todos){
+            for(int i = 0; i < Math.min(depth,6); i++){
+                str += "    ";
+            }
+            str +=  "Line " + t.line + "- TODO: " + t.message + "\n";
+        }
+        for(Task t : progress){
+            for(int i = 0; i < Math.min(depth,6); i++){
+                str += "    ";
+            }
+            str +=  "Line " + t.line + "- In Progress: " + t.message + "\n";
+        }
+        for(Task t : done){
+            for(int i = 0; i < Math.min(depth,6); i++){
+                str += "    ";
+            }
+            str +=  "Line " + t.line + "- Done: " + t.message + "\n";
+        }
         return str;
     }
 
@@ -131,6 +142,15 @@ public class HTMLGenerator {
      */
     private static String generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
-        return null;
+        String str = new String();
+        for(int i = 0; i < Math.min(depth,6); i++){
+            str += "    ";
+        }
+        str += "<div> Directory: " + name +
+                "Tasks: " +
+                todos.size() + " TODO, " +
+                progress.size() + "InProgress, " +
+                done.size() + "Done. </div>";
+        return str;
     }
 }

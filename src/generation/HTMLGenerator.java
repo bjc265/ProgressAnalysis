@@ -50,7 +50,7 @@ public class HTMLGenerator {
 
         if(!f.isDirectory()){
             try {
-                tt = new TaskTuple(ta.parseFile(f), ta.parseFile(f), ta.parseFile(f));
+                tt = ta.parseFile(f);
             } catch (IOException e) {
                 System.out.println("Problem parsing file");
             }

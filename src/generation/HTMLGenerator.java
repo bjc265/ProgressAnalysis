@@ -2,14 +2,22 @@ package generation;
 
 import data.Task;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import analysis.TaskAnalyzer;
 import data.TaskTuple;
+
+import javax.swing.text.html.HTML;
 
 /**
  * Created by brett on 9/17/16.
@@ -152,16 +160,42 @@ public class HTMLGenerator {
     private static void generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
         String str = new String();
+        File file = new File(Paths.get("Output").toString(),"" + name + ".html");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file.getAbsoluteFile());
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
+
+        BufferedWriter bw = new BufferedWriter(fw);
+
         for(int i = 0; i < Math.min(depth,6); i++){
             str += "    ";
         }
+
         str += "<div> Directory: " + name +
                 "Tasks: " +
                 todos.size() + " TODO, " +
                 progress.size() + " InProgress, " +
                 done.size() + " Done. </div>\n";
         for(Task t : todos){
-            str+= "<div> TODO: Line " + t.line;
+            str += "<div> TODO: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+        }
+        for(Task t : progress){
+            str += "<div> In Progress: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+        }
+        for(Task t : done){
+            str += "<div> Done: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+        }
+
+        try{
+            bw.write(str);
+            bw.close();
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
         }
         HTMLText += str;
     }

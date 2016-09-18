@@ -112,7 +112,7 @@ public class HTMLGenerator {
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory()) {
                 TaskTuple fileTaskList = taskMap.get(subf);
-                if(taskList != null) {
+                if(fileTaskList != null) {
                     generateFileHTML(subf, fileTaskList.todos, fileTaskList.progresses, fileTaskList.dones, depth + 1);
                 }
             }

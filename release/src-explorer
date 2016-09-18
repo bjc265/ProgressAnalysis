@@ -6,7 +6,7 @@ DIR=$(pwd)
 sudo mkdir ${DIR}/output
 
 # Run JAR File
-java -jar ${DIR}/ProgressAnalysis.jar $0 $1 $2
+sudo java -jar ${DIR}/ProgressAnalysis.jar $1 $2 $3
 
 # Copy CSS
 sudo cp file.css ${DIR}/output

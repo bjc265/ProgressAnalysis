@@ -130,15 +130,16 @@ public class HTMLGenerator {
             generateDirectoryHTML(directory, taskList.todos, taskList.progresses, taskList.dones, depth);
         }
 
-        for(File subf : directory.listFiles()) {
-            if (!subf.isDirectory()) {
-                TaskTuple fileTaskList = taskMap.get(subf);
-                if(fileTaskList != null) {
-                    generateFileHTML(subf, fileTaskList.todos, fileTaskList.progresses, fileTaskList.dones, depth + 1);
+        if(directory != null && directory.listFiles() != null) {
+            for (File subf : directory.listFiles()) {
+                if (!subf.isDirectory()) {
+                    TaskTuple fileTaskList = taskMap.get(subf);
+                    if (fileTaskList != null) {
+                        generateFileHTML(subf, fileTaskList.todos, fileTaskList.progresses, fileTaskList.dones, depth + 1);
+                    }
+                } else {
+                    parseFileTree(subf, depth + 1);
                 }
-            }
-            else {
-                parseFileTree(subf, depth + 1);
             }
         }
     }

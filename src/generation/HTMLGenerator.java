@@ -137,7 +137,7 @@ public class HTMLGenerator {
 
         String name = f.getName().replace(".java","");
         String str = startHTMLFile();
-        File file = new File(outDirectory.getPath(),"" + name + ".html");
+        File file = new File(outDirectory.getPath(),"" + f.toString() + ".html");
         FileWriter fw = null;
 
         try {

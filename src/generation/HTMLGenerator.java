@@ -217,7 +217,7 @@ public class HTMLGenerator {
         catch(java.io.IOException E){
             E.printStackTrace();
         }
-        HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+        HTMLText += "<li class=\"depth file\" data-depth=" + depth + "><a href=\"" + _path + ".html\">"
                 + f.getName() + "</a></li>\n";
     }
 
@@ -291,7 +291,7 @@ public class HTMLGenerator {
         catch(java.io.IOException E){
             E.printStackTrace();
         }
-        HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+        HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "><a href=\"" + _path + ".html\">"
                 + f.getName() + "</a></li>\n";
     }
     /** Yes, this is just a string wrapped in a function. No, I'm not gonna change it :D */

@@ -159,7 +159,7 @@ public class HTMLGenerator {
 
         String name = f.getName().replace(".java","");
         String str = startHTMLFile();
-        File file = new File(outDirectory.getPath(),"" + f.toString() + ".html");
+        File file = new File(outDirectory.getPath(),"" + f.toString().replace("/","_").replace(".java","") + ".html");
         FileWriter fw = null;
 
         try {
@@ -240,7 +240,7 @@ public class HTMLGenerator {
                                                 int depth) {
         String str = startHTMLFile();
         String name = f.getName().replace(".java","");
-        File file = new File(Paths.get("Output").toString(),"" + name + ".html");
+        File file = new File(Paths.get("Output").toString(),"" + f.toString().replace("/","_").replace(".java","") + ".html");
         FileWriter fw = null;
 
         try {

@@ -183,8 +183,6 @@ public class HTMLGenerator {
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span><span class=\"line\"" + t.line + "<span></li>\n";
 
-            HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
-                    + f.getName() + "</a></li>\n";
         }
         str += "</ul>\n" +
                 "<h3>IN PROGRESS</h3>\n" +
@@ -193,9 +191,6 @@ public class HTMLGenerator {
         for(Task t : progress){
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span><span class=\"line\"" + t.line + "<span></li>\n";
-
-            HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
-                    + f.getName() + "</a></li>\n";
         }
 
         str += "</ul>\n"+
@@ -206,8 +201,7 @@ public class HTMLGenerator {
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span><span class=\"line\"" + t.line + "<span></li>\n";
 
-            HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
-                    + f.getName() + "</a></li>\n";
+
         }
 
         str += " </ul>\n " +
@@ -221,7 +215,8 @@ public class HTMLGenerator {
         catch(java.io.IOException E){
             E.printStackTrace();
         }
-        HTMLText += str;
+        HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                + f.getName() + "</a></li>\n";
     }
 
     /*
@@ -265,8 +260,6 @@ public class HTMLGenerator {
         for(Task t : todos){
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span><span class=\"line\"" + t.line + "<span></li>\n";
-            HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
-                    + f.getName() + "</a></li>\n";
         }
         str += "</ul>\n" +
                 "<h3>IN PROGRESS</h3>\n" +
@@ -275,8 +268,6 @@ public class HTMLGenerator {
         for(Task t : progress){
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span><span class=\"line\"" + t.line + "<span></li>\n";
-            HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
-                    + f.getName() + "</a></li>\n";
         }
 
         str += "</ul>\n"+
@@ -286,9 +277,6 @@ public class HTMLGenerator {
 
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span><span class=\"line\"" + t.line + "<span></li>\n";
-
-            HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
-                    + f.getName() + "</a></li>\n";
         }
         str += " </ul>\n " +
                 "</body>\n" +
@@ -301,7 +289,8 @@ public class HTMLGenerator {
         catch(java.io.IOException E){
             E.printStackTrace();
         }
-        HTMLText += str;
+        HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                + f.getName() + "</a></li>\n";
     }
     /** Yes, this is just a string wrapped in a function. No, I'm not gonna change it :D */
     private static String startHTMLFile(){

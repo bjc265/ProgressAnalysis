@@ -4,6 +4,9 @@ import java.util.List;
 
 /**
  * Created by chris on 9/17/16.
+ *
+ * An instance of TaskTuple represents all tasks to be completed for a given file, split into three distinct lists:
+ * one for "todos", one for "in progress"'s, and one for "done's".
  */
 public class TaskTuple {
 
@@ -11,6 +14,17 @@ public class TaskTuple {
     public List<Task> progresses;
     public List<Task> dones;
 
+    /*
+        Constructor
+
+        @param: t
+            the list of "todos" tasks
+        @param: p
+            the list of "in progress" tasks
+        @param: d
+            the list of "done" tasks
+
+     */
     public TaskTuple(List<Task> t, List<Task> p, List<Task> d){
         todos = t;
         progresses = p;

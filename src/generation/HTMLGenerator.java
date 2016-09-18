@@ -151,7 +151,7 @@ public class HTMLGenerator {
             }
             str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
-        str += " </div>\n </head>\n";
+        str += " </div>\n </body>\n";
 
         try{
             bw.write(str);
@@ -213,7 +213,7 @@ public class HTMLGenerator {
             str += "<div> Done: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
         }
 
-        str += " </div>\n </head>\n";
+        str += " </div>\n </body>\n";
 
         try{
             bw.write(str);

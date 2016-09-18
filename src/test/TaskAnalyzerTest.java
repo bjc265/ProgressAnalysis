@@ -31,6 +31,20 @@ public class TaskAnalyzerTest {
     }
 
     @Test
+    public void testComplete() {
+        String test = "// COMPLETE: Do the thing.\n";
+        BufferedReader br = new BufferedReader(new StringReader(test));
+        TaskTuple res = null;
+        try {
+            res = TaskAnalyzer.parseReader("test.java", br, Paths.get(""));
+        } catch (IOException e) {
+            fail();
+        }
+        assertNotNull(res);
+        assertEquals(1, res.dones.size());
+    }
+
+    @Test
     public void testComplex() {
         String test = "System.out.println(\"// TODO: Don't do that thing\"); // TODO: Do the thing.\n";
         BufferedReader br = new BufferedReader(new StringReader(test));
@@ -42,6 +56,7 @@ public class TaskAnalyzerTest {
         }
         assertNotNull(res);
         assertEquals("Do the thing.", res.todos.get(0).message);
+        assertEquals(1, res.todos.get(0).line);
     }
 
     @Test(expected = IOException.class)

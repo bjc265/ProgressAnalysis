@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Create output Dir
+mkdir ./output
+
+# Run JAR File
+touch output/index.html; echo "<h1>Hello, world!</h1>" > output/index.html
+
+# Copy CSS
+
+# Copy JS
+
+# Open in Browser
+xdg-open ./output/index.html > /dev/null

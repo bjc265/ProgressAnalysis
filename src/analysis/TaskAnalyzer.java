@@ -32,7 +32,7 @@ public class TaskAnalyzer {
         Pattern todoPattern;
         Pattern completePattern;
         Pattern inProgressPattern;
-
+        
         if (fileName.lastIndexOf('.') == -1) throw new IOException();
         switch (fileName.substring(fileName.lastIndexOf('.'))) {
             case ".java":

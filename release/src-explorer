@@ -17,4 +17,4 @@ sudo cp index.js ${DIR}/output
 sudo cp jquery.js ${DIR}/output
 
 # Open in Browser
-sudoxdg-open ${DIR}/output/index.html > /dev/null
+xdg-open ${DIR}/output/index.html > /dev/null

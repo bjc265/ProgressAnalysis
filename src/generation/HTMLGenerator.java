@@ -162,6 +162,7 @@ public class HTMLGenerator {
 
         String name = f.getName().replace(".java","");
         String str = startHTMLFile();
+        str = str.replace("index.css", "file.css");
         int index = f.toString().indexOf(root);
         String filename = f.toString().substring(index).replace("/","_").replace(".java","");
         File file = new File(outDirectory.getPath(),"" + filename + ".html");
@@ -182,8 +183,8 @@ public class HTMLGenerator {
         String _path = f.toString().replace("/","_").replace(".java","");
         for(Task t : todos){
 
-            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
-                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span></li>\n";
 
         }
         str += "</ul>\n" +
@@ -191,8 +192,8 @@ public class HTMLGenerator {
                 "<ul>";
 
         for(Task t : progress){
-            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
-                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span></li>\n";
         }
 
         str += "</ul>\n"+
@@ -200,8 +201,8 @@ public class HTMLGenerator {
                 "<ul>\n";
 
         for(Task t : done){
-            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
-                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span></li>\n";
 
 
         }
@@ -239,6 +240,7 @@ public class HTMLGenerator {
     private static void generateDirectoryHTML(File f, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
         String str = startHTMLFile();
+        str = str.replace("index.css", "file.css");
         String name = f.getName().replace(".java","");
         int index = f.toString().indexOf(root);
         String filename = f.toString().substring(index).replace("/","_").replace(".java","");
@@ -260,16 +262,16 @@ public class HTMLGenerator {
         String _path = f.toString().replace("/","_").replace(".java","");
 
         for(Task t : todos){
-            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
-                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span></li>\n";
         }
         str += "</ul>\n" +
                 "<h3>IN PROGRESS</h3>\n" +
                 "<ul>";
 
         for(Task t : progress){
-            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
-                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span></li>\n";
         }
 
         str += "</ul>\n"+
@@ -277,8 +279,8 @@ public class HTMLGenerator {
                 "<ul>\n";
         for(Task t : done){
 
-            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
-                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span></li>\n";
         }
         str += " </ul>\n " +
                 "</body>\n" +

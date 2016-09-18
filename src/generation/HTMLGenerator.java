@@ -2,14 +2,22 @@ package generation;
 
 import data.Task;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import analysis.TaskAnalyzer;
 import data.TaskTuple;
+
+import javax.swing.text.html.HTML;
 
 /**
  * Created by brett on 9/17/16.
@@ -33,6 +41,8 @@ public class HTMLGenerator {
         generateTaskMap(rootDirectory);
 
         parseFileTree(rootDirectory, 0);
+
+        HTMLText += "</ul>\n</body>\n</html>";
     }
 
     /*
@@ -83,12 +93,12 @@ public class HTMLGenerator {
     private static void parseFileTree(File directory, int depth) {
         assert directory.isDirectory();
 
-        generateDirectoryHTML(directory.getName(), taskMap.get(directory).todos, taskMap.get(directory).progresses,
+        generateDirectoryHTML(directory, taskMap.get(directory).todos, taskMap.get(directory).progresses,
                 taskMap.get(directory).dones, depth);
 
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory()) {
-                generateFileHTML(subf.getName(), taskMap.get(subf).todos, taskMap.get(subf).progresses,
+                generateFileHTML(subf, taskMap.get(subf).todos, taskMap.get(subf).progresses,
                         taskMap.get(subf).dones, depth + 1);
             }
             else {
@@ -100,8 +110,8 @@ public class HTMLGenerator {
     /*
         Generate a string of HTML to represent one file's information about the tasks in that file
 
-        @param: name
-            The name of the file
+        @param: f
+            The file
         @param: todos
             The list of type tod Task objects corresponding to this file
         @param: progress
@@ -111,13 +121,23 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this file is inside within the main project
      */
-    private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateFileHTML(File f, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
-        String str = new String();
-        for(int i = 0; i < Math.min(depth,6); i++){
-            str += "    ";
+
+        String name = f.getName().replace(".java","");
+        String str = startHTMLFile();
+        File file = new File(Paths.get("Output").toString(),"" + name + ".html");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file.getAbsoluteFile());
         }
-        str += "<div> File: " +name;
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
+
+        BufferedWriter bw = new BufferedWriter(fw);
+
+        str += "<h1>" + name;
         for(Task t : todos){
             str +=  "Line " + t.line + "- TODO: " + t.message + "\n";
         }
@@ -130,7 +150,15 @@ public class HTMLGenerator {
             }
             str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
-        str += " </div>\n";
+        str += " </div>\n </body>\n";
+
+        try{
+            bw.write(str);
+            bw.close();
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
         HTMLText += str;
     }
 
@@ -138,9 +166,9 @@ public class HTMLGenerator {
         Generate a string of HTML to represent one directory's information about all tasks in files inside this
         directory
 
-        @param: name
-            The name of the directory
-                @param: todos
+        @param: f
+            The file
+        @param: todos
             The list of type tod Task objects corresponding to this file
         @param: progress
             The list of type progress Task objects corresponding to this file
@@ -149,29 +177,60 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this directory is inside within the main project
      */
-    private static void generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateDirectoryHTML(File f, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
-        String str = new String();
+        String str = startHTMLFile();
+        String name = f.getName().replace(".java","");
+        File file = new File(Paths.get("Output").toString(),"" + name + ".html");
+        FileWriter fw = null;
+
+        try {
+            fw = new FileWriter(file.getAbsoluteFile());
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
+
+        BufferedWriter bw = new BufferedWriter(fw);
+
         for(int i = 0; i < Math.min(depth,6); i++){
             str += "    ";
         }
+
         str += "<div> Directory: " + name +
                 "Tasks: " +
                 todos.size() + " TODO, " +
                 progress.size() + " InProgress, " +
                 done.size() + " Done. </div>\n";
         for(Task t : todos){
-            str+= "<div> TODO: Line " + t.line;
+            str += "<div> TODO: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+        }
+        for(Task t : progress){
+            str += "<div> In Progress: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+        }
+        for(Task t : done){
+            str += "<div> Done: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+        }
+
+        str += " </div>\n </body>\n";
+
+        try{
+            bw.write(str);
+            bw.close();
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
         }
         HTMLText += str;
     }
 
-    private static String startHTMLFile(String str){
-        str += "<!doctype html>\n " + "<html lang = \"en\"\n" +
-                "<head>\n   <meta charset=\"utf-8\"\n\n" +
+    private static String startHTMLFile(){
+        String str = new String();
+        str += "<!doctype html>\n " + "<html lang = \"en\">\n" +
+                "<head>\n   <meta charset=\"utf-8\">\n\n" +
                 "   <title> Progress Analyzer </title>\n" +
                 "   <meta name=\"description\" content=\"SitePoint\">\n" +
-                "   <meta name=\"author\" content=\"SitePoint\"\n\n>" +
+                "   <meta name=\"author\" content=\"SitePoint\">\n\n" +
                 "</head>\n\n" +
                 "<body>\n";
 

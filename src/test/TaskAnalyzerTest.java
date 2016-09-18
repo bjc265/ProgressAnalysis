@@ -59,6 +59,21 @@ public class TaskAnalyzerTest {
         assertEquals(1, res.todos.get(0).line);
     }
 
+    @Test
+    public void testComplexPython() {
+        String test = "print \"# TODO YOLOSWAG\"\n# TODO: Do the thing.\n";
+        BufferedReader br = new BufferedReader(new StringReader(test));
+        TaskTuple res = null;
+        try {
+            res = TaskAnalyzer.parseReader("test.py", br, Paths.get(""));
+        } catch (IOException e) {
+            fail();
+        }
+        assertNotNull(res);
+        assertEquals("Do the thing.", res.todos.get(0).message);
+        assertEquals(2, res.todos.get(0).line);
+    }
+
     @Test(expected = IOException.class)
     public void testUnrecognizedFiletype() throws IOException {
         String test = "// TODO: Do the thing.";

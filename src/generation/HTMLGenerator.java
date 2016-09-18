@@ -183,7 +183,7 @@ public class HTMLGenerator {
         String _path = f.toString().replace("/","_").replace(".java","");
         for(Task t : todos){
 
-            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+            str +=  "<li><span class=\"line\">" + t.line + "</span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span></li>\n";
 
         }
@@ -192,7 +192,7 @@ public class HTMLGenerator {
                 "<ul>";
 
         for(Task t : progress){
-            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+            str +=  "<li><span class=\"line\">" + t.line + "</span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span></li>\n";
         }
 
@@ -201,7 +201,7 @@ public class HTMLGenerator {
                 "<ul>\n";
 
         for(Task t : done){
-            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+            str +=  "<li><span class=\"line\">" + t.line + "</span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span></li>\n";
 
 
@@ -262,7 +262,7 @@ public class HTMLGenerator {
         String _path = f.toString().replace("/","_").replace(".java","");
 
         for(Task t : todos){
-            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+            str +=  "<li><span class=\"line\">" + t.line + "</span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span></li>\n";
         }
         str += "</ul>\n" +
@@ -270,7 +270,7 @@ public class HTMLGenerator {
                 "<ul>";
 
         for(Task t : progress){
-            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+            str +=  "<li><span class=\"line\">" + t.line + "</span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span></li>\n";
         }
 
@@ -279,7 +279,7 @@ public class HTMLGenerator {
                 "<ul>\n";
         for(Task t : done){
 
-            str +=  "<li><span class=\"line\"" + t.line + "></span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+            str +=  "<li><span class=\"line\">" + t.line + "</span><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
                     "</span></li>\n";
         }
         str += " </ul>\n " +

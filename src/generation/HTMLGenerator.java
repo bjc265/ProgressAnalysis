@@ -47,7 +47,7 @@ public class HTMLGenerator {
         outDirectory = out;
 
         HTMLText += startHTMLFile() +
-                "<h1>" + name + "</h1>\n <ul>\n";
+                "<h1>" + name + "</h1>\n <div class=\"content\">\n<ul>\n";
 
         generateTaskMap(rootDirectory);
         parseFileTree(rootDirectory, 0);

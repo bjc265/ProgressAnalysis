@@ -1,11 +1,10 @@
 package test;
 
 import generation.HTMLGenerator;
-import org.junit.*;
+import org.junit.Test;
+
 import java.io.File;
 import java.nio.file.Paths;
-
-import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -20,5 +19,4 @@ public class HTMLGeneratorTest {
         HTMLGenerator.generateHTML(src_file, output_dir, "Grant");
         System.out.println(HTMLGenerator.HTMLText);
     }
-
 }

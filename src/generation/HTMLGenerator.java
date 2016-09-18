@@ -91,12 +91,12 @@ public class HTMLGenerator {
     private static void parseFileTree(File directory, int depth) {
         assert directory.isDirectory();
 
-        generateDirectoryHTML(directory.getName(), taskMap.get(directory).todos, taskMap.get(directory).progresses,
+        generateDirectoryHTML(directory, taskMap.get(directory).todos, taskMap.get(directory).progresses,
                 taskMap.get(directory).dones, depth);
 
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory()) {
-                generateFileHTML(subf.getName(), taskMap.get(subf).todos, taskMap.get(subf).progresses,
+                generateFileHTML(subf, taskMap.get(subf).todos, taskMap.get(subf).progresses,
                         taskMap.get(subf).dones, depth + 1);
             }
             else {
@@ -108,8 +108,8 @@ public class HTMLGenerator {
     /*
         Generate a string of HTML to represent one file's information about the tasks in that file
 
-        @param: name
-            The name of the file
+        @param: f
+            The file
         @param: todos
             The list of type tod Task objects corresponding to this file
         @param: progress
@@ -119,10 +119,10 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this file is inside within the main project
      */
-    private static void generateFileHTML(String old_name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateFileHTML(File f, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
 
-        String name = old_name.replace(".java","");
+        String name = f.getName().replace(".java","");
         String str = startHTMLFile();
         File file = new File(Paths.get("Output").toString(),"" + name + ".html");
         FileWriter fw = null;
@@ -164,9 +164,9 @@ public class HTMLGenerator {
         Generate a string of HTML to represent one directory's information about all tasks in files inside this
         directory
 
-        @param: name
-            The name of the directory
-                @param: todos
+        @param: f
+            The file
+        @param: todos
             The list of type tod Task objects corresponding to this file
         @param: progress
             The list of type progress Task objects corresponding to this file
@@ -175,10 +175,10 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this directory is inside within the main project
      */
-    private static void generateDirectoryHTML(String old_name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateDirectoryHTML(File f, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
         String str = startHTMLFile();
-        String name = old_name.replace(".java","");
+        String name = f.getName().replace(".java","");
         File file = new File(Paths.get("Output").toString(),"" + name + ".html");
         FileWriter fw = null;
 

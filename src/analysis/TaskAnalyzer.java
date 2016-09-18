@@ -61,7 +61,8 @@ public class TaskAnalyzer {
                 .map(x -> new Pair<Integer, Matcher>(lineNo.getAndIncrement(), todoPattern.matcher(x)))
                 .filter(x -> x.getValue().matches())
                 .map(x -> new Task(
-                        Task.TaskType.TODO, x.getKey(),
+                        Task.TaskType.TODO,
+                        x.getKey(),
                         x.getValue().group(x.getValue().groupCount()).substring(5).trim(), path))
                 .collect(Collectors.toList());
 
@@ -70,7 +71,8 @@ public class TaskAnalyzer {
                 .map(x -> new Pair<Integer, Matcher>(lineNo.getAndIncrement(), completePattern.matcher(x)))
                 .filter(x -> x.getValue().matches())
                 .map(x -> new Task(
-                        Task.TaskType.COMPLETE, x.getKey(),
+                        Task.TaskType.COMPLETE,
+                        x.getKey(),
                         x.getValue().group(x.getValue().groupCount()).substring(9).trim(), path))
                 .collect(Collectors.toList());
 
@@ -79,7 +81,8 @@ public class TaskAnalyzer {
                 .map(x -> new Pair<Integer, Matcher>(lineNo.getAndIncrement(), inProgressPattern.matcher(x)))
                 .filter(x -> x.getValue().matches())
                 .map(x -> new Task(
-                        Task.TaskType.IN_PROGRESS, x.getKey(),
+                        Task.TaskType.IN_PROGRESS,
+                        x.getKey(),
                         x.getValue().group(x.getValue().groupCount()).substring(12).trim(), path))
                 .collect(Collectors.toList());
 

@@ -23,7 +23,7 @@ import javax.swing.text.html.HTML;
  * Created by brett on 9/17/16.
  */
 public class HTMLGenerator {
-    public static String HTMLText;
+    public static String HTMLText = "";
 
     static TaskAnalyzer ta;
     static Map<File, TaskTuple> taskMap;

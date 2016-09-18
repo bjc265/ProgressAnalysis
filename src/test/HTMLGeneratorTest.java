@@ -15,9 +15,9 @@ public class HTMLGeneratorTest {
 
     @Test
     public void test(){
-        File src_file = Paths.get("src").toFile();
-        HTMLGenerator.generateHTML(src_file);
-        System.out.println(HTMLGenerator.HTMLText);
+        //File src_file = Paths.get("src").toFile();
+        //HTMLGenerator.generateHTML(src_file);
+        //System.out.println(HTMLGenerator.HTMLText);
     }
 
 }

@@ -1,14 +1,16 @@
 #!/bin/bash
 
+DIR = $(pwd)
+
 # Create output Dir
-mkdir ./output
+mkdir ${DIR}/output
 
 # Run JAR File
-touch output/index.html; echo "<h1>Hello, world!</h1>" > output/index.html
+touch ${DIR}/output/index.html; echo "<h1>Hello, world!</h1>" > ${DIR}/output/index.html
 
 # Copy CSS
 
 # Copy JS
 
 # Open in Browser
-xdg-open ./output/index.html > /dev/null
+xdg-open ${DIR}/output/index.html > /dev/null

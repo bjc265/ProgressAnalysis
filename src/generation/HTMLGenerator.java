@@ -178,7 +178,7 @@ public class HTMLGenerator {
         BufferedWriter bw = new BufferedWriter(fw);
 
         str += "<h1>" + f.toString() + "</h1>\n";
-        str += "<h3>TODO's</h3>\n" +
+        str += "<h3>TODO</h3>\n" +
                 "<ul>\n";
         String _path = f.toString().replace("/","_").replace(".java","");
         for(Task t : todos){
@@ -197,7 +197,7 @@ public class HTMLGenerator {
         }
 
         str += "</ul>\n"+
-                "<h3>DONE's</h3>\n" +
+                "<h3>DONE</h3>\n" +
                 "<ul>\n";
 
         for(Task t : done){
@@ -257,7 +257,7 @@ public class HTMLGenerator {
         BufferedWriter bw = new BufferedWriter(fw);
 
         str += "<h1>" + f.toString() + "</h1>\n";
-        str += "<h3>TODO's</h3>\n" +
+        str += "<h3>TODO</h3>\n" +
                 "<ul>\n";
         String _path = f.toString().replace("/","_").replace(".java","");
 
@@ -275,7 +275,7 @@ public class HTMLGenerator {
         }
 
         str += "</ul>\n"+
-                "<h3>DONE's</h3>\n" +
+                "<h3>DONE</h3>\n" +
                 "<ul>\n";
         for(Task t : done){
 

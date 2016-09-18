@@ -41,6 +41,8 @@ public class HTMLGenerator {
         generateTaskMap(rootDirectory);
 
         parseFileTree(rootDirectory, 0);
+
+        HTMLText += "</ul>\n</body>\n</html>";
     }
 
     /*

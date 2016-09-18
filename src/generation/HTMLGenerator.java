@@ -119,9 +119,22 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this file is inside within the main project
      */
-    private static void generateFileHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateFileHTML(String old_name, List<Task> todos, List<Task> progress, List<Task> done,
                                            int depth) {
-        String str = new String();
+
+        String name = old_name.replace(".java","");
+        String str = startHTMLFile();
+        File file = new File(Paths.get("Output").toString(),"" + name + ".html");
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file.getAbsoluteFile());
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
+
+        BufferedWriter bw = new BufferedWriter(fw);
+
         for(int i = 0; i < Math.min(depth,6); i++){
             str += "    ";
         }
@@ -138,7 +151,15 @@ public class HTMLGenerator {
             }
             str +=  "Line " + t.line + "- Done: " + t.message + "\n";
         }
-        str += " </div>\n";
+        str += " </div>\n </head>\n";
+
+        try{
+            bw.write(str);
+            bw.close();
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
         HTMLText += str;
     }
 
@@ -157,11 +178,13 @@ public class HTMLGenerator {
         @param: depth
             The number of directories that this directory is inside within the main project
      */
-    private static void generateDirectoryHTML(String name, List<Task> todos, List<Task> progress, List<Task> done,
+    private static void generateDirectoryHTML(String old_name, List<Task> todos, List<Task> progress, List<Task> done,
                                                 int depth) {
-        String str = new String();
+        String str = startHTMLFile();
+        String name = old_name.replace(".java","");
         File file = new File(Paths.get("Output").toString(),"" + name + ".html");
         FileWriter fw = null;
+
         try {
             fw = new FileWriter(file.getAbsoluteFile());
         }
@@ -190,6 +213,8 @@ public class HTMLGenerator {
             str += "<div> Done: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
         }
 
+        str += " </div>\n </head>\n";
+
         try{
             bw.write(str);
             bw.close();
@@ -200,12 +225,13 @@ public class HTMLGenerator {
         HTMLText += str;
     }
 
-    private static String startHTMLFile(String str){
-        str += "<!doctype html>\n " + "<html lang = \"en\"\n" +
-                "<head>\n   <meta charset=\"utf-8\"\n\n" +
+    private static String startHTMLFile(){
+        String str = new String();
+        str += "<!doctype html>\n " + "<html lang = \"en\">\n" +
+                "<head>\n   <meta charset=\"utf-8\">\n\n" +
                 "   <title> Progress Analyzer </title>\n" +
                 "   <meta name=\"description\" content=\"SitePoint\">\n" +
-                "   <meta name=\"author\" content=\"SitePoint\"\n\n>" +
+                "   <meta name=\"author\" content=\"SitePoint\">\n\n" +
                 "</head>\n\n" +
                 "<body>\n";
 

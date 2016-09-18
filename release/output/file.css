@@ -1,0 +1,39 @@
+@import 'https://fonts.googleapis.com/css?family=Muli';
+
+body {
+    font-family: 'Muli', sans-serif;
+    max-width: 600px;
+    margin: 60px auto 0 auto;
+}
+
+h1 {
+    font-family: monospace;
+}
+
+ul {
+    list-style: none;
+}
+
+h3 {
+    margin-top: 40px;
+}
+
+span.line::before {
+    content: "Line ";
+}
+
+span.line {
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 4px;
+    margin: 0 10px;
+    padding: 0.2em 0.5em;
+    text-align: center;
+}
+
+span.source {
+    font-family: monospace;
+    font-size: 0.7em;
+    color: gray;
+    margin-left: 40px;
+}

@@ -1,16 +1,20 @@
 #!/bin/bash
 
-DIR = $(pwd)
+DIR=$(pwd)
 
 # Create output Dir
-mkdir ${DIR}/output
+sudo mkdir ${DIR}/output
 
 # Run JAR File
-touch ${DIR}/output/index.html; echo "<h1>Hello, world!</h1>" > ${DIR}/output/index.html
+java -jar ${DIR}/ProgressAnalysis.jar $0 $1 $2
 
 # Copy CSS
+sudo cp file.css ${DIR}/output
+sudo cp index.css ${DIR}/output
 
 # Copy JS
+sudo cp index.js ${DIR}/output
+sudo cp jquery.js ${DIR}/output
 
 # Open in Browser
-xdg-open ${DIR}/output/index.html > /dev/null
+sudoxdg-open ${DIR}/output/index.html > /dev/null

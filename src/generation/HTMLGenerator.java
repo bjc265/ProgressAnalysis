@@ -124,6 +124,7 @@ public class HTMLGenerator {
 
         String name = old_name.replace(".java","");
         String str = startHTMLFile();
+        String home_str = star
         File file = new File(Paths.get("Output").toString(),"" + name + ".html");
         FileWriter fw = null;
         try {

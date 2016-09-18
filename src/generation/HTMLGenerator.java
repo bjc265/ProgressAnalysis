@@ -124,7 +124,6 @@ public class HTMLGenerator {
 
         String name = old_name.replace(".java","");
         String str = startHTMLFile();
-        String home_str = star
         File file = new File(Paths.get("Output").toString(),"" + name + ".html");
         FileWriter fw = null;
         try {
@@ -136,10 +135,7 @@ public class HTMLGenerator {
 
         BufferedWriter bw = new BufferedWriter(fw);
 
-        for(int i = 0; i < Math.min(depth,6); i++){
-            str += "    ";
-        }
-        str += "<div> File: " +name;
+        str += "<h1>" + name;
         for(Task t : todos){
             str +=  "Line " + t.line + "- TODO: " + t.message + "\n";
         }

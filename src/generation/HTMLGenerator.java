@@ -24,9 +24,12 @@ import javax.swing.text.html.HTML;
  */
 public class HTMLGenerator {
     public static String HTMLText;
-    static TaskAnalyzer ta;
 
+    static TaskAnalyzer ta;
     static Map<File, TaskTuple> taskMap;
+
+    static File outDirectory;
+    static String projectName;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -34,12 +37,15 @@ public class HTMLGenerator {
         @param: rootDirectory
             The root directory of the project to find information about
      */
-    public static void generateHTML(File rootDirectory) {
+    public static void generateHTML(File rootDirectory, File out, String name) {
 
         ta = new TaskAnalyzer();
         taskMap = new HashMap<>();
-        generateTaskMap(rootDirectory);
 
+        outDirectory = out;
+        projectName = name;
+
+        generateTaskMap(rootDirectory);
         parseFileTree(rootDirectory, 0);
 
         HTMLText += "</ul>\n</body>\n</html>";

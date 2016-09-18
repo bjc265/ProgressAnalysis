@@ -45,10 +45,12 @@ public class HTMLGenerator {
 
         outDirectory = out;
 
-        generateTaskMap(rootDirectory);
-        parseFileTree(rootDirectory, 0);
         HTMLText += startHTMLFile() +
                 "<h1>" + name + "</h1>\n <ul>\n";
+
+        generateTaskMap(rootDirectory);
+        parseFileTree(rootDirectory, 0);
+
         HTMLText += "</ul>\n </div> \n\n <footer>Created at Big Red Hacks 2016</footer>\n\n" +
                 "<script src=\"jquery.js\"></script>\n" +
                 "<script src=\"index.js\"></script>\n" +
@@ -305,11 +307,11 @@ public class HTMLGenerator {
         return "<!doctype html>\n " + "<html lang = \"en\">\n" +
                 "<head>\n   <meta charset=\"utf-8\">\n\n" +
                 "   <title> Progress Analyzer </title>\n" +
+                " <link rel=\"stylesheet\" href=\"index.css\">\n" +
                 "   <meta name=\"description\" content=\"SitePoint\">\n" +
                 "   <meta name=\"author\" content=\"SitePoint\">\n\n" +
                 "</head>\n\n" +
                 "<body>\n";
-
 
     }
 }

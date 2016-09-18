@@ -54,6 +54,24 @@ public class HTMLGenerator {
                 "<script src=\"index.js\"></script>\n" +
                 "</body>\n" +
                 "</html>";
+        File file = new File(outDirectory.getPath(),"index.html");
+        FileWriter fw = null;
+
+        try {
+            fw = new FileWriter(file.getAbsoluteFile());
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
+
+        BufferedWriter bw = new BufferedWriter(fw);
+        try {
+            bw.write(HTMLText);
+            bw.close();
+        }
+        catch(java.io.IOException E){
+            E.printStackTrace();
+        }
     }
 
     /*

@@ -16,7 +16,7 @@ public class Main {
 
         File directory = Paths.get(args[0]).toFile();
         File outDirectory = Paths.get(args[1]).toFile();
-        String projectName = args[1];
+        String projectName = args[2];
 
         List<File> files = new ArrayList<>();
 

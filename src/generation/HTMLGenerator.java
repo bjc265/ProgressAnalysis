@@ -104,13 +104,17 @@ public class HTMLGenerator {
     private static void parseFileTree(File directory, int depth) {
         assert directory.isDirectory();
 
-        generateDirectoryHTML(directory, taskMap.get(directory).todos, taskMap.get(directory).progresses,
-                taskMap.get(directory).dones, depth);
+        TaskTuple taskList = taskMap.get(directory);
+        if(taskList != null){
+            generateDirectoryHTML(directory, taskList.todos, taskList.progresses, taskList.dones, depth);
+        }
 
         for(File subf : directory.listFiles()) {
             if (!subf.isDirectory()) {
-                generateFileHTML(subf, taskMap.get(subf).todos, taskMap.get(subf).progresses,
-                        taskMap.get(subf).dones, depth + 1);
+                TaskTuple fileTaskList = taskMap.get(subf);
+                if(taskList != null) {
+                    generateFileHTML(subf, fileTaskList.todos, fileTaskList.progresses, fileTaskList.dones, depth + 1);
+                }
             }
             else {
                 parseFileTree(subf, depth + 1);

@@ -25,6 +25,7 @@ import javax.swing.text.html.HTML;
 public class HTMLGenerator {
     public static String HTMLText;
     static TaskAnalyzer ta;
+    public static File root;
 
     static Map<File, TaskTuple> taskMap;
 
@@ -38,9 +39,18 @@ public class HTMLGenerator {
 
         ta = new TaskAnalyzer();
         taskMap = new HashMap<>();
+        root = rootDirectory;
+        HTMLText += startHTMLFile() +
+                "<h1>" + root.getName() + "</h1>\n <ul>\n";
         generateTaskMap(rootDirectory);
 
         parseFileTree(rootDirectory, 0);
+
+        HTMLText += "</ul>\n </div> \n\n <footer>Created at Big Red Hacks 2016</footer>\n\n" +
+                "<script src=\"jquery.js\"></script>\n" +
+                "<script src=\"index.js\"></script>\n" +
+                "</body>\n" +
+                "</html>";
     }
 
     /*
@@ -124,7 +134,7 @@ public class HTMLGenerator {
 
         String name = f.getName().replace(".java","");
         String str = startHTMLFile();
-        File file = new File(Paths.get("Output").toString(),"" + name + ".html");
+        File file = new File(outDirectory.getPath(),"" + name + ".html");
         FileWriter fw = null;
         try {
             fw = new FileWriter(file.getAbsoluteFile());
@@ -135,20 +145,43 @@ public class HTMLGenerator {
 
         BufferedWriter bw = new BufferedWriter(fw);
 
-        str += "<h1>" + name;
+        str += "<h1>" + f.toString() + "</h1>\n";
+        str += "<h3>TODO's</h3>\n" +
+                "<ul>\n";
+        String _path = f.toString().replace("/","_");
         for(Task t : todos){
-            str +=  "Line " + t.line + "- TODO: " + t.message + "\n";
+
+            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+
+            HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                    + f.getName() + "</a></li>\n";
         }
+        str += "</ul>\n" +
+                "<h3>IN PROGRESS</h3>\n" +
+                "<ul>";
+
         for(Task t : progress){
-            str +=  "Line " + t.line + "- In Progress: " + t.message + "\n";
+            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+
+            HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                    + f.getName() + "</a></li>\n";
         }
+
+        str += "</ul>\n"+
+                "<h3>DONE's</h3>\n" +
+                "<ul>\n";
         for(Task t : done){
-            for(int i = 0; i < Math.min(depth,6); i++){
-                str += "    ";
-            }
-            str +=  "Line " + t.line + "- Done: " + t.message + "\n";
+            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+
+            HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                    + f.getName() + "</a></li>\n";
         }
-        str += " </div>\n </body>\n";
+        str += " </ul>\n " +
+                "</body>\n" +
+                "</html>";
 
         try{
             bw.write(str);
@@ -191,26 +224,42 @@ public class HTMLGenerator {
 
         BufferedWriter bw = new BufferedWriter(fw);
 
-        for(int i = 0; i < Math.min(depth,6); i++){
-            str += "    ";
-        }
+        str += "<h1>" + f.toString() + "</h1>\n";
+        str += "<h3>TODO's</h3>\n" +
+                "<ul>\n";
+        String _path = f.toString().replace("/","_");
 
-        str += "<div> Directory: " + name +
-                "Tasks: " +
-                todos.size() + " TODO, " +
-                progress.size() + " InProgress, " +
-                done.size() + " Done. </div>\n";
         for(Task t : todos){
-            str += "<div> TODO: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                    + f.getName() + "</a></li>\n";
         }
+        str += "</ul>\n" +
+                "<h3>IN PROGRESS</h3>\n" +
+                "<ul>";
+
         for(Task t : progress){
-            str += "<div> In Progress: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
-        }
-        for(Task t : done){
-            str += "<div> Done: In " + t.filePath + " line " + t.line + ": " + t.message + "</div>\n";
+            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+            HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                    + f.getName() + "</a></li>\n";
         }
 
-        str += " </div>\n </body>\n";
+        str += "</ul>\n"+
+                "<h3>DONE's</h3>\n" +
+                "<ul>\n";
+        for(Task t : done){
+
+            str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
+                    "</span><span class=\"line\"" + t.line + "<span></li>\n";
+
+            HTMLText += "<li class=\"depth dir\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
+                    + f.getName() + "</a></li>\n";
+        }
+        str += " </ul>\n " +
+                "</body>\n" +
+                "</html>";
 
         try{
             bw.write(str);

@@ -179,7 +179,7 @@ public class HTMLGenerator {
         str += "<h1>" + f.toString() + "</h1>\n";
         str += "<h3>TODO's</h3>\n" +
                 "<ul>\n";
-        String _path = f.toString().replace("/","_");
+        String _path = f.toString().replace("/","_").replace(".java","");
         for(Task t : todos){
 
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +
@@ -257,7 +257,7 @@ public class HTMLGenerator {
         str += "<h1>" + f.toString() + "</h1>\n";
         str += "<h3>TODO's</h3>\n" +
                 "<ul>\n";
-        String _path = f.toString().replace("/","_");
+        String _path = f.toString().replace("/","_").replace(".java","");
 
         for(Task t : todos){
             str +=  "<li><span class=\"message\">" + t.message + "</span><span class=\"source\">" + t.filePath +

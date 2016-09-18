@@ -28,8 +28,7 @@ public class HTMLGenerator {
     static TaskAnalyzer ta;
     static Map<File, TaskTuple> taskMap;
 
-    static File outDirectory;
-    static String projectName;
+    private static File outDirectory;
 
     /*
         Generate an HTML File to display information about the class hierarchy and tasks
@@ -45,7 +44,6 @@ public class HTMLGenerator {
 
 
         outDirectory = out;
-        projectName = name;
 
         generateTaskMap(rootDirectory);
         parseFileTree(rootDirectory, 0);
@@ -186,7 +184,7 @@ public class HTMLGenerator {
             HTMLText += "<li class=\"depth file\" data-depth=" + depth + "<a href=\"" + _path + ".html\">"
                     + f.getName() + "</a></li>\n";
         }
-        
+
         str += " </ul>\n " +
                 "</body>\n" +
                 "</html>";
